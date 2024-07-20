@@ -74,9 +74,9 @@ def construct_prompt(
         cross_file_prompt += f"{comment_symbol} Path: {snippet['path']}\n{snippet['snippet']}" + "\n\n"
 
     # in-file prompt
-    # in_file_prompt = f"{comment_symbol} Path: {data['file_path']}\n{data['import_statement']}\n{data['cropped_code']}\n"
+    in_file_prompt = f"{comment_symbol} Path: {data['file_path']}\n{data['import_statement']}\n{data['cropped_code']}\n"
 
-    in_file_prompt = f"{comment_symbol} Path: {data['file_path']}\n{data['cropped_code']}\n"
+    #in_file_prompt = f"{comment_symbol} Path: {data['file_path']}\n{data['cropped_code']}\n"
 
     # if we assign the tokenizer and the max_token_nums, we will truncate the cross-file prompt to meet the constraint
     if tokenizer is not None and max_token_nums is not None:
@@ -202,7 +202,7 @@ for prompt_no in tqdm(range(50)):
     inputs = tokenizer([prompt], return_tensors="pt")
 
     # Example 1: Print the scores for each token generated with Greedy Search
-    outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=64, return_dict_in_generate=True, output_scores=True, eos_token_id=tokenizer.encode("\n")[0])
+    outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True, eos_token_id=tokenizer.encode("\n")[0])
     transition_scores = model.compute_transition_scores(
       outputs.sequences, outputs.scores, normalize_logits=True
     )
