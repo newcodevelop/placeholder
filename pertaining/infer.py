@@ -189,13 +189,13 @@ for prompt_no in tqdm(range(50)):
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['token_num']<8000: 
     prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=15800)
-    if prompt_no==2:
-        print(prompt)
-    ls = prompt.split("\n")
-    lst = [f' {x}' for x in ls]
-    prompt = "\n".join(lst)
-    if prompt_no==2:
-        print(prompt)
+    # if prompt_no==2:
+    #     print(prompt)
+    # ls = prompt.split("\n")
+    # lst = [f' {x}' for x in ls]
+    # prompt = "\n".join(lst)
+    # if prompt_no==2:
+    #     print(prompt)
     tokenizer.pad_token_id = tokenizer.eos_token_id
     inputs = tokenizer([prompt], return_tensors="pt")
 
