@@ -15,10 +15,11 @@ chat_model = ChatModel(args)
 messages = []
 print("Welcome to the CLI application, use `clear` to remove the history, use `exit` to exit the application.")
 
-query = {"text": "\n\n def foo():   a = bar()\n   return a"}
+query = "\n\n def foo():   a = bar()\n   return a"
+
 
 messages = []
-messages.append(query)
+messages.append({"role": "user", "content": query})
 
 print('response')
 for new_text in chat_model.stream_chat(messages):
