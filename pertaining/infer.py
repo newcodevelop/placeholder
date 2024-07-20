@@ -202,7 +202,10 @@ for prompt_no in tqdm(range(50)):
     inputs = tokenizer([prompt], return_tensors="pt")
 
     # Example 1: Print the scores for each token generated with Greedy Search
-    outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True, eos_token_id=tokenizer.encode("\n")[0])
+    # outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True, eos_token_id=tokenizer.encode("\n")[0])
+    
+    outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True)
+      
     transition_scores = model.compute_transition_scores(
       outputs.sequences, outputs.scores, normalize_logits=True
     )
