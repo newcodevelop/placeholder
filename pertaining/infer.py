@@ -111,8 +111,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 if int(args.ept)==1:
     print('using trained EPT model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept/checkpoint-12")
-    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept/checkpoint-12").to('cuda')
+    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_lora_ept")
+    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_lora_ept").to('cuda')
 else:
     print('using original pretrained model for inference')
     tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
