@@ -109,7 +109,7 @@ def construct_prompt(
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-if args.ept:
+if int(args.ept)==1:
     print('using trained EPT model for inference')
     tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept/checkpoint-12")
     model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept/checkpoint-12").to('cuda')
