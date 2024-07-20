@@ -27,7 +27,13 @@
 
 # torch_gc()
 
+import argparse
 
+parser = argparse.ArgumentParser(description='Process some integers.')
+
+parser.add_argument('--ept')
+
+args = parser.parse_args()
 
 
 import json
@@ -103,11 +109,15 @@ def construct_prompt(
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept_python")
-model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept_python").to('cuda')
+if args.ept:
+    print('using trained EPT model for inference')
+    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept_python")
+    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept_python").to('cuda')
+else:
+    print('using original pretrained model for inference')
+    tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
+    model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base").to('cuda')
 
-#tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
-#model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base").to('cuda')
 
 from fuzzywuzzy import fuzz
 
