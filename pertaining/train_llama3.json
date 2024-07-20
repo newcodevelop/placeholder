@@ -1,0 +1,21 @@
+{
+  "stage": "pt",
+  "do_train": true,
+  "finetuning_type": "lora",
+  "lora_target": "all",
+  "model_name_or_path": "deepseek-ai/deepseek-coder-1.3b-base",
+  "dataset": "c4_demo",
+  "output_dir": "/cos_mount/users/dibyanayan/deepseek_lora_ept",
+  "per_device_train_batch_size": 8,
+  "gradient_accumulation_steps": 2,
+  "lr_scheduler_type": "cosine",
+  "logging_steps": 10,
+  "warmup_ratio": 0.1,
+  "save_steps": 1000,
+  "learning_rate": 5e-05,
+  "num_train_epochs": 3.0,
+  "max_grad_norm": 1.0,
+  "quantization_bit": 4,
+  "loraplus_lr_ratio": 16.0,
+  "fp16": true
+}
