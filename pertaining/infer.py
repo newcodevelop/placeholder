@@ -186,11 +186,20 @@ import pandas as pd
 df = {'prompt': [], 'pred': [], 'act': []}
 from tqdm import tqdm
 
-for prompt_no in tqdm(range(100)):
+cnt = 0
+for i in range(8000):
+    if dataset['cross_file_first'][i]['level']=='2k': 
+        cnt+=1
+
+print('No. of examples at 2k level cross file first is', cnt)
+
+
+
+for prompt_no in tqdm(range(8000)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
-  if dataset['cross_file_first'][prompt_no]['token_num']<2000: 
-    prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=2000)
+  if dataset['cross_file_first'][prompt_no]['level']=='2k': 
+    prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=1600)
     # if prompt_no==2:
     #     print(prompt)
     # ls = prompt.split("\n")
@@ -221,6 +230,8 @@ for prompt_no in tqdm(range(100)):
     G.append(act)
     print(f"Predicted: {pred}")
     print(f"Actual: {act}")
+  else:
+    continue
 
 import evaluate
 perplexity = evaluate.load("perplexity", module_type="metric")
