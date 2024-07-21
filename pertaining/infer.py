@@ -238,9 +238,11 @@ final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']),
             'act': list(df['act']), 'ppl': lop})
 
 
-
-
-final_df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer.csv')
+if int(args.ept)==1:
+    final_df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer.csv')
+else:
+    final_df.to_csv('/cos_mount/users/dibyanayan/df_normal_infer.csv')
+    
 
 print(exact_match_score(P,G))
 print(edit_similarity_score(P,G))
