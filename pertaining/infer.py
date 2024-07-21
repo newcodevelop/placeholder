@@ -189,8 +189,8 @@ from tqdm import tqdm
 for prompt_no in tqdm(range(100)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
-  if dataset['cross_file_first'][prompt_no]['token_num']<8000: 
-    prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=8000)
+  if dataset['cross_file_first'][prompt_no]['token_num']<2000: 
+    prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=2000)
     # if prompt_no==2:
     #     print(prompt)
     # ls = prompt.split("\n")
@@ -222,8 +222,25 @@ for prompt_no in tqdm(range(100)):
     print(f"Predicted: {pred}")
     print(f"Actual: {act}")
 
+import evaluate
+perplexity = evaluate.load("perplexity", module_type="metric")
 df = pd.DataFrame(df)
-df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer.csv')
+all_pt = []
+for _, row in df.iterrows():
+    tot = str(row['prompt']) + '\n' + str(row['pred'])
+    all_pt.append(tot)
+results = perplexity.compute(model_id='microsoft/phi-2',
+                             add_start_token=False,
+                             predictions=all_pt)
+
+lop = results['perplexities']
+final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']), 
+            'act': list(df['act']), 'ppl': lop})
+
+
+
+
+final_df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer.csv')
 
 print(exact_match_score(P,G))
 print(edit_similarity_score(P,G))
