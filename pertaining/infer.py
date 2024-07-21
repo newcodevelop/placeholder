@@ -183,14 +183,14 @@ G = []
 kk = len(dataset)
 print(kk)
 import pandas as pd
-df = {'pred': [], 'act': []}
+df = {'prompt': [], 'pred': [], 'act': []}
 from tqdm import tqdm
 
-for prompt_no in tqdm(range(50)):
+for prompt_no in tqdm(range(100)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['token_num']<8000: 
-    prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=15800)
+    prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=8000)
     # if prompt_no==2:
     #     print(prompt)
     # ls = prompt.split("\n")
@@ -216,6 +216,7 @@ for prompt_no in tqdm(range(50)):
 
     df['pred'].append(pred)
     df['act'].append(act)
+    df['prompt'].append(prompt)
     P.append(pred)
     G.append(act)
     print(f"Predicted: {pred}")
