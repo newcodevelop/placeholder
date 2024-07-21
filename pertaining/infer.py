@@ -223,7 +223,7 @@ for prompt_no in tqdm(range(100)):
     print(f"Actual: {act}")
 
 df = pd.DataFrame(df)
-df.to_csv('/cos_mount/users/dibyanayan/df_normal_infer.csv')
+df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer.csv')
 
 print(exact_match_score(P,G))
 print(edit_similarity_score(P,G))
