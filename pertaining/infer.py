@@ -272,9 +272,9 @@ final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']),
 
 
 if int(args.ept)==1:
-    final_df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer_starcoder.csv')
+    final_df.to_csv('/cos_mount/users/dibyanayan/deep_ept_50.csv')
 else:
-    final_df.to_csv('/cos_mount/users/dibyanayan/df_normal_infer_starcoder.csv')
+    final_df.to_csv('/cos_mount/users/dibyanayan/deep_pt_50.csv')
     
 
 print(exact_match_score(P,G))
