@@ -18,7 +18,7 @@ import json
 # args = parser.parse_args()
 # print(args.dataset_path)
 
-
+print('getting random data')
 dataset_path = '/cos_mount/users/dibyanayan/data_for_ept_python_random.json'
 
 
