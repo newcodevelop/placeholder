@@ -28,6 +28,7 @@
 # torch_gc()
 
 import argparse
+import torch
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 
