@@ -209,7 +209,7 @@ print('No. of examples at 2k level cross file first is', cnt)
 
 
 
-for prompt_no in tqdm(range(20)):
+for prompt_no in tqdm(range(5)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['level']=='2k': 
@@ -264,7 +264,7 @@ for _, row in df.iterrows():
     all_pt.append(tot)
 results = perplexity.compute(model_id='microsoft/phi-2',
                              add_start_token=False,
-                             predictions=all_pt, device = 'cuda:1')
+                             predictions=all_pt, device = 'gpu')
 
 lop = results['perplexities']
 final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']), 
