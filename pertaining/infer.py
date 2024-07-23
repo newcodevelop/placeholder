@@ -234,6 +234,13 @@ for prompt_no in tqdm(range(40)):
     )
 
     pred = tokenizer.batch_decode(outputs.sequences[:,inputs['input_ids'].shape[1]:])[0]
+
+    pred = pred.split('\n')
+    for i in pred:
+        if i!='\n':
+            break
+    # first non-occurence of the endline character
+    pred = i
     # pred = tokenizer.batch_decode(outputs.sequences[:,inputs['input_ids'].shape[1]:])[0].split("\n")[0]
     act = dataset['cross_file_first'][prompt_no]['next_line']
 
