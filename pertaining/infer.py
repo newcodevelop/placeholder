@@ -126,12 +126,12 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 if int(args.ept)==1:
     print('using trained EPT model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_full_ept")
-    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_full_ept", device_map="auto", torch_dtype=torch.bfloat16)
+    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept")
+    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept", device_map="auto", torch_dtype=torch.bfloat16)
 else:
     print('using original pretrained model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("bigcode/starcoder2-3b")
-    model = AutoModelForCausalLM.from_pretrained("bigcode/starcoder2-3b", device_map="auto", torch_dtype=torch.bfloat16)
+    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder2")
+    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder2", device_map="auto", torch_dtype=torch.bfloat16)
 
 
 
@@ -209,7 +209,7 @@ print('No. of examples at 2k level cross file first is', cnt)
 
 
 
-for prompt_no in tqdm(range(80)):
+for prompt_no in tqdm(range(40)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['level']=='2k': 
