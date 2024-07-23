@@ -111,14 +111,27 @@ def construct_prompt(
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+# if int(args.ept)==1:
+#     print('using trained EPT model for inference')
+#     tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept")
+#     model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept").to('cuda')
+# else:
+#     print('using original pretrained model for inference')
+#     tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
+#     model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base").to('cuda')
+
+
+
+
 if int(args.ept)==1:
     print('using trained EPT model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept")
-    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept").to('cuda')
+    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_full_ept")
+    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_full_ept").to('cuda:0')
 else:
     print('using original pretrained model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
-    model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base").to('cuda')
+    tokenizer = AutoTokenizer.from_pretrained("bigcode/starcoder2-3b")
+    model = AutoModelForCausalLM.from_pretrained("bigcode/starcoder2-3b").to('cuda:0')
+
 
 
 from fuzzywuzzy import fuzz
@@ -195,7 +208,7 @@ print('No. of examples at 2k level cross file first is', cnt)
 
 
 
-for prompt_no in tqdm(range(8000)):
+for prompt_no in tqdm(range(80)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['level']=='2k': 
@@ -242,7 +255,7 @@ for _, row in df.iterrows():
     all_pt.append(tot)
 results = perplexity.compute(model_id='microsoft/phi-2',
                              add_start_token=False,
-                             predictions=all_pt)
+                             predictions=all_pt, device = 'cuda:1)
 
 lop = results['perplexities']
 final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']), 
@@ -250,9 +263,9 @@ final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']),
 
 
 if int(args.ept)==1:
-    final_df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer.csv')
+    final_df.to_csv('/cos_mount/users/dibyanayan/df_ept_infer_starcoder.csv')
 else:
-    final_df.to_csv('/cos_mount/users/dibyanayan/df_normal_infer.csv')
+    final_df.to_csv('/cos_mount/users/dibyanayan/df_normal_infer_starcoder.csv')
     
 
 print(exact_match_score(P,G))
