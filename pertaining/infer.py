@@ -236,9 +236,9 @@ for prompt_no in tqdm(range(20)):
     pred = tokenizer.batch_decode(outputs.sequences[:,inputs['input_ids'].shape[1]:])[0]
 
     pred = pred.split('\n')
-    print(pred)
+    # print(pred)
     for i in pred:
-        if i!='\n':
+        if i!='':
             break
     # first non-occurence of the endline character
     pred = i
