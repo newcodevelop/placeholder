@@ -238,7 +238,7 @@ for prompt_no in tqdm(range(5)):
     pred = pred.split('\n')
     # print(pred)
     for i in pred:
-        if i!='':
+        if i!='' and not i.strip().startswith('#'):
             break
     # first non-occurence of the endline character
     pred = i
