@@ -14,7 +14,5 @@
   "learning_rate": 5e-05,
   "num_train_epochs": 3.0,
   "max_grad_norm": 1.0,
-  "quantization_bit": 4,
-  "loraplus_lr_ratio": 16.0,
-  "fp16": true
+  "bf16": true
 }
