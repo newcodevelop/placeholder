@@ -255,7 +255,7 @@ for _, row in df.iterrows():
     all_pt.append(tot)
 results = perplexity.compute(model_id='microsoft/phi-2',
                              add_start_token=False,
-                             predictions=all_pt, device = 'cuda:1)
+                             predictions=all_pt, device = 'cuda:1')
 
 lop = results['perplexities']
 final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']), 
