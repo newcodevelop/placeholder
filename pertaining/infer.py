@@ -267,15 +267,21 @@ results = perplexity.compute(model_id='microsoft/phi-2',
                              predictions=all_pt, device = 'gpu')
 
 lop = results['perplexities']
-final_df = pd.DataFrame({'prompt': list(df['prompt']), 'pred': list(df['pred']), 
-            'act': list(df['act']), 'ppl': lop})
 
 
+
+
+    
+
+em = exact_match_score(P,G)
+es = edit_similarity_score(P,G)
+
+
+print(em,es)
+
+final_df = pd.DataFrame({'prompt': list(df['prompt']).extend([em,es]), 'pred': list(df['pred']).extend([em,es]), 
+            'act': list(df['act']).extend([em,es]), 'ppl': lop.extend([em,es])})
 if int(args.ept)==1:
     final_df.to_csv('/cos_mount/users/dibyanayan/deep_ept_50.csv')
 else:
     final_df.to_csv('/cos_mount/users/dibyanayan/deep_pt_50.csv')
-    
-
-print(exact_match_score(P,G))
-print(edit_similarity_score(P,G))
