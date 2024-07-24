@@ -264,7 +264,7 @@ for _, row in df.iterrows():
     all_pt.append(tot)
 results = perplexity.compute(model_id='microsoft/phi-2',
                              add_start_token=False,
-                             predictions=all_pt, device = 'gpu')
+                             predictions=all_pt)
 
 lop = results['perplexities']
 
