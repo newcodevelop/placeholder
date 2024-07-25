@@ -215,15 +215,19 @@ for prompt_no in tqdm(range(20)):
   if dataset['cross_file_first'][prompt_no]['level']=='2k':
     # tokenizer.pad_token_id = tokenizer.eos_token_id
     prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=15800)
+    inputs = tokenizer([prompt], return_tensors="pt")
     if prompt_no==2:
         print(prompt)
-    # ls = prompt.split("\n")
-    # lst = [f' {x}' for x in ls]
-    # prompt = "\n".join(lst)
-    # if prompt_no==2:
-    #     print(prompt)
+        # ls = prompt.split("\n")
+        # lst = [f' {x}' for x in ls]
+        # prompt = "\n".join(lst)
+        # if prompt_no==2:
+        #     print(prompt)
+        
+        
+        print(tokenizer.batch_decode(inputs))
     
-    inputs = tokenizer([prompt], return_tensors="pt")
+        print(0/0)
 
     # Example 1: Print the scores for each token generated with Greedy Search
     # outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True, eos_token_id=tokenizer.encode("\n")[0])
