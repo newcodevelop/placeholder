@@ -101,9 +101,8 @@ def construct_prompt(
             cross_file_prompt = "\n".join(cross_file_prompt_lines[:i]) + "\n\n"
 
     # combine the cross-file prompt and in-file prompt
-    ii = "\n # Next line uses code from any of the below files:\n"
-    for j in paths:
-        ii+=str(j)+"\t"
+    ii = "\n # use import statements"
+   
         
     prompt = cross_file_prompt + in_file_prompt + ii
 
