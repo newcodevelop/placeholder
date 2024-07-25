@@ -101,10 +101,10 @@ def construct_prompt(
             cross_file_prompt = "\n".join(cross_file_prompt_lines[:i]) + "\n\n"
 
     # combine the cross-file prompt and in-file prompt
-    ii = "\n # use import statements"
+    # ii = "\n # use import statements"
    
         
-    prompt = cross_file_prompt + in_file_prompt + ii
+    prompt = cross_file_prompt + in_file_prompt 
 
     # normalize some empty lines
     prompt = re.sub(r'\n{4,}', '\n\n', prompt)
@@ -196,7 +196,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 #     model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base", device_map="auto", torch_dtype=torch.bfloat16)
 
 
-
+prefix_token = "<fim_prefix>"
+suffix_token = "<fim_suffix><fim_middle>"
 
 if int(args.ept)==1:
     print('using trained EPT model for inference')
@@ -289,6 +290,9 @@ for prompt_no in tqdm(range(50)):
   if dataset['cross_file_first'][prompt_no]['level']=='2k':
     # tokenizer.pad_token_id = tokenizer.eos_token_id
     prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=15800)
+
+    prompt = prefix_token + prompt + suffix_token
+    
     inputs = tokenizer([prompt], return_tensors="pt")
     # if prompt_no==2:
     #     print(prompt)
