@@ -223,7 +223,8 @@ for prompt_no in tqdm(range(20)):
         # prompt = "\n".join(lst)
         # if prompt_no==2:
         #     print(prompt)
-        
+
+        print('*'*10)
         
         print(tokenizer.batch_decode(inputs['input_ids'])[0])
     
