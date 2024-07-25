@@ -227,7 +227,7 @@ for prompt_no in tqdm(range(10)):
     # Example 1: Print the scores for each token generated with Greedy Search
     # outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True, eos_token_id=tokenizer.encode("\n")[0])
     
-    outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True)
+    outputs = model.generate(input_ids = inputs['input_ids'].to('cuda'), attention_mask = inputs['attention_mask'].to('cuda'), max_new_tokens=128, return_dict_in_generate=True, output_scores=True, temperature=0.2, top_p=0.95, do_sample=True)
       
     transition_scores = model.compute_transition_scores(
       outputs.sequences, outputs.scores, normalize_logits=True
@@ -279,8 +279,8 @@ es = str(edit_similarity_score(P,G))
 
 print(em,es)
 
-final_df = pd.DataFrame({'prompt': list(df['prompt']).extend([em,es]), 'pred': list(df['pred']).extend([em,es]), 
-            'act': list(df['act']).extend([em,es]), 'ppl': lop.extend([em,es])})
+final_df = pd.DataFrame({'prompt': list(df['prompt'])+[em,es], 'pred': list(df['pred'])+[em,es], 
+            'act': list(df['act'])+[em,es], 'ppl': lop+[em,es]})
 if int(args.ept)==1:
     final_df.to_csv('/cos_mount/users/dibyanayan/deep_ept_100.csv')
 else:
