@@ -225,7 +225,7 @@ for prompt_no in tqdm(range(20)):
         #     print(prompt)
         
         
-        print(tokenizer.batch_decode(inputs['input_ids']))
+        print(tokenizer.batch_decode(inputs['input_ids'])[0])
     
         print(0/0)
 
