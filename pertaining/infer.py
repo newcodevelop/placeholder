@@ -262,7 +262,7 @@ all_pt = []
 for _, row in df.iterrows():
     tot = str(row['prompt']) + '\n' + str(row['pred'])
     all_pt.append(tot)
-results = perplexity.compute(model_id='microsoft/phi-2',
+results = perplexity.compute(model_id='/cos_mount/users/dibyanayan/phi2',
                              add_start_token=False,
                              predictions=all_pt)
 
@@ -282,6 +282,6 @@ print(em,es)
 final_df = pd.DataFrame({'prompt': list(df['prompt']).extend([em,es]), 'pred': list(df['pred']).extend([em,es]), 
             'act': list(df['act']).extend([em,es]), 'ppl': lop.extend([em,es])})
 if int(args.ept)==1:
-    final_df.to_csv('/cos_mount/users/dibyanayan/deep_ept_50.csv')
+    final_df.to_csv('/cos_mount/users/dibyanayan/deep_ept_100.csv')
 else:
-    final_df.to_csv('/cos_mount/users/dibyanayan/deep_pt_50.csv')
+    final_df.to_csv('/cos_mount/users/dibyanayan/deep_pt_100.csv')
