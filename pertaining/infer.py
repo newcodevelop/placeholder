@@ -213,7 +213,7 @@ for prompt_no in tqdm(range(20)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['level']=='2k':
-    tokenizer.pad_token_id = tokenizer.eos_token_id
+    # tokenizer.pad_token_id = tokenizer.eos_token_id
     prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=15800)
     # if prompt_no==2:
     #     print(prompt)
