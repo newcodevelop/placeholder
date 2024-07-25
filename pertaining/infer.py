@@ -273,8 +273,8 @@ lop = results['perplexities']
 
     
 
-em = exact_match_score(P,G)
-es = edit_similarity_score(P,G)
+em = str(exact_match_score(P,G))
+es = str(edit_similarity_score(P,G))
 
 
 print(em,es)
