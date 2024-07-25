@@ -201,8 +201,8 @@ suffix_token = "<fim_suffix><fim_middle>"
 
 if int(args.ept)==1:
     print('using trained EPT model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_full_ept")
-    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_full_ept", device_map="auto", torch_dtype=torch.bfloat16)
+    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept")
+    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept", device_map="auto", torch_dtype=torch.bfloat16)
 else:
     print('using original pretrained model for inference')
     tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder2")
