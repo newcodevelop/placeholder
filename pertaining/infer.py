@@ -284,7 +284,7 @@ print('No. of examples at 2k level cross file first is', cnt)
 
 
 
-for prompt_no in tqdm(range(50)):
+for prompt_no in tqdm(range(150)):
   # print(dataset['cross_file_first'][prompt_no]['token_num'])
   # print(0/0)
   if dataset['cross_file_first'][prompt_no]['level']=='2k':
