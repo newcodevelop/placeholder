@@ -199,14 +199,30 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 prefix_token = "<fim_prefix>"
 suffix_token = "<fim_suffix><fim_middle>"
 
-if int(args.ept)==1:
-    print('using trained EPT model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept")
-    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept", device_map="auto", torch_dtype=torch.bfloat16)
+model_name = 'starcoder'
+
+if model_name=='starcoder':
+
+
+    if int(args.ept)==1:
+        print('using trained EPT model for inference')
+        
+        tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept")
+        model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder_lora_ept", device_map="auto", torch_dtype=torch.bfloat16)
+    else:
+        print('using original pretrained model for inference')
+        tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder2")
+        model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder2", device_map="auto", torch_dtype=torch.bfloat16)
 else:
-    print('using original pretrained model for inference')
-    tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/starcoder2")
-    model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/starcoder2", device_map="auto", torch_dtype=torch.bfloat16)
+
+    if int(args.ept)==1:
+        print('using trained EPT model for inference')
+        tokenizer = AutoTokenizer.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept")
+        model = AutoModelForCausalLM.from_pretrained("/cos_mount/users/dibyanayan/deepseek_full_ept", device_map="auto", torch_dtype=torch.bfloat16)
+    else:
+        print('using original pretrained model for inference')
+        tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
+        model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base", device_map="auto", torch_dtype=torch.bfloat16)
 
 
 
@@ -291,7 +307,11 @@ for prompt_no in tqdm(range(150)):
     # tokenizer.pad_token_id = tokenizer.eos_token_id
     prompt = construct_prompt(dataset['cross_file_first'][prompt_no], tokenizer=tokenizer, max_token_nums=15800)
 
-    prompt = prefix_token + prompt + suffix_token
+    if model_name=='starcoder':
+    
+      prompt = prefix_token + prompt + suffix_token
+    else:
+        prompt = prompt
     
     inputs = tokenizer([prompt], return_tensors="pt")
     # if prompt_no==2:
