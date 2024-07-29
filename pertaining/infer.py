@@ -309,7 +309,7 @@ for prompt_no in tqdm(range(150)):
 
     if model_name=='starcoder':
     
-      prompt = prefix_token + prompt + suffix_token
+        prompt = prefix_token + prompt + suffix_token
     else:
         prompt = prompt
     
